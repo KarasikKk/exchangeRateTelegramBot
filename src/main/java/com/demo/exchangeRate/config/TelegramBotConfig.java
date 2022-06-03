@@ -2,20 +2,23 @@ package com.demo.exchangeRate.config;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
 @Getter
+@Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@ConfigurationProperties(ignoreUnknownFields = false, prefix = "telegrambot")
 public class TelegramBotConfig {
-    @Value("${telegrambot.webHookPath}")
     String webHookPath;
-    @Value("${telegrambot.userName}")
     String userName;
-    @Value("${telegrambot.botToken}")
     String botToken;
-//    @Value("${telegrambot.belarusBankPath}")
-//    String belarusBankPath;
+    String belarusBankPath;
+    String alfaBankPath;
+    String helpAnswer;
+    String defaultAnswer;
+    String NationalBankPath;
 }

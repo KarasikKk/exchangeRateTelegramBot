@@ -1,15 +1,13 @@
-package com.demo.exchangeRate.model;
+package com.demo.exchangeRate.DTO;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown=true)
-@JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.ANY)
-public class BelarusBankFinanceRate implements BankRate {
+@RequiredArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+public class BelarusBankViewDTO implements BankRate {
     private double USD_in;
     private double USD_out;
     private double EUR_in;
@@ -26,12 +24,12 @@ public class BelarusBankFinanceRate implements BankRate {
     }
 
     @Override
-    public double getUSDSellingRate() {
+    public double getUSDSellRate() {
         return USD_out;
     }
 
     @Override
-    public double getEURSellingRate() {
+    public double getEURSellRate() {
         return EUR_out;
     }
 }

@@ -9,7 +9,6 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 @RestController
 public class WebhookController {
-
     private final TelegramBot telegramBot;
 
     public WebhookController(TelegramBot telegramBot) {
@@ -20,5 +19,4 @@ public class WebhookController {
     public BotApiMethod onUpdateReceived(@RequestBody Update update) {
         return telegramBot.onWebhookUpdateReceived(update);
     }
-
 }

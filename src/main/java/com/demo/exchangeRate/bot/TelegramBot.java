@@ -11,6 +11,7 @@ import org.telegram.telegrambots.meta.api.methods.updates.SetWebhook;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.starter.SpringWebhookBot;
 
+import java.util.Map;
 
 @Getter
 @Setter
@@ -19,8 +20,8 @@ public class TelegramBot extends SpringWebhookBot {
     String botPath;
     String botUsername;
     String botToken;
-
-    private MessageController messageController;
+    Map<String, String> exchangeRateReceivingAddresses;
+    MessageController messageController;
 
     public TelegramBot(MessageController messageController, DefaultBotOptions options, SetWebhook setWebhook) {
         super(options, setWebhook);
@@ -32,11 +33,8 @@ public class TelegramBot extends SpringWebhookBot {
         this.messageController = messageController;
     }
 
-
     @Override
     public BotApiMethod onWebhookUpdateReceived(Update update) {
-        return messageController.handleUpdate(update);
+        return messageController.handleUpdate(update, exchangeRateReceivingAddresses);
     }
-
-
 }
