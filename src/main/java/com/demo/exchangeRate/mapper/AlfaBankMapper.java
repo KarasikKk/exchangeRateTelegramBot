@@ -1,7 +1,7 @@
 package com.demo.exchangeRate.mapper;
 
 import com.demo.exchangeRate.DTO.AlfaBankDTO;
-import com.demo.exchangeRate.DTO.AlfaBankViewDTO;
+import com.demo.exchangeRate.DTO.FullBankExchangeRateDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -11,23 +11,23 @@ import java.util.List;
 @Component
 public class AlfaBankMapper {
 
-    public AlfaBankViewDTO convertToAlfaBankViwDTO(List<AlfaBankDTO> alfaBankDTOBank) {
-        AlfaBankViewDTO alfaBankView = new AlfaBankViewDTO();
+    public FullBankExchangeRateDTO convertToFullExchangeRateDTO(List<AlfaBankDTO> alfaBankDTOBank) {
+        FullBankExchangeRateDTO fullExchangeRate = new FullBankExchangeRateDTO();
         for (AlfaBankDTO alfaBank : alfaBankDTOBank) {
             if (alfaBank.getName() != null) {
-                fillTheFields(alfaBankView, alfaBank);
+                fillTheFields(fullExchangeRate, alfaBank);
             }
         }
-        return alfaBankView;
+        return fullExchangeRate;
     }
 
-    private void fillTheFields(AlfaBankViewDTO alfaBankView, AlfaBankDTO alfaBank) {
+    private void fillTheFields(FullBankExchangeRateDTO fullExchangeRate, AlfaBankDTO alfaBank) {
         if (alfaBank.getSellIso().equals("EUR")) {
-            alfaBankView.setEurBuyRate(alfaBank.getSellRate());
-            alfaBankView.setEurSellRate(alfaBank.getBuyRate());
+            fullExchangeRate.setEurBuyRate(alfaBank.getSellRate());
+            fullExchangeRate.setEurSellRate(alfaBank.getBuyRate());
         } else if (alfaBank.getSellIso().equals("USD")) {
-            alfaBankView.setUsdBuyRate(alfaBank.getSellRate());
-            alfaBankView.setUsdSellRate(alfaBank.getBuyRate());
+            fullExchangeRate.setUsdBuyRate(alfaBank.getSellRate());
+            fullExchangeRate.setUsdSellRate(alfaBank.getBuyRate());
         }
     }
 }

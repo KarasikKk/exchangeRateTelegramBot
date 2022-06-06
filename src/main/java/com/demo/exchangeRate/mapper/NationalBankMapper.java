@@ -1,7 +1,7 @@
 package com.demo.exchangeRate.mapper;
 
-import com.demo.exchangeRate.DTO.NationalBank;
-import com.demo.exchangeRate.DTO.NationalBankViewDTO;
+import com.demo.exchangeRate.DTO.NationalBankDTO;
+import com.demo.exchangeRate.DTO.SellExchangeRateDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -9,15 +9,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class NationalBankMapper {
 
-    public NationalBankViewDTO convertToNationalBankViewDTO(NationalBank[] nationalBanks) {
-        NationalBankViewDTO nationalBankViewDTO = new NationalBankViewDTO();
-        for (NationalBank nb : nationalBanks) {
+    public SellExchangeRateDTO convertToSellExchangeRateDTO(NationalBankDTO[] nationalBankDTOS) {
+        SellExchangeRateDTO sellExchangeRateDTO = new SellExchangeRateDTO();
+        for (NationalBankDTO nb : nationalBankDTOS) {
             if (nb.getCurAbbreviation().equals("USD")) {
-                nationalBankViewDTO.setUsd(nb.getCurOfficialRate());
+                sellExchangeRateDTO.setUsdSellRate(nb.getCurOfficialRate());
             } else if (nb.getCurAbbreviation().equals("EUR")) {
-                nationalBankViewDTO.setEur(nb.getCurOfficialRate());
+                sellExchangeRateDTO.setEurSellRate(nb.getCurOfficialRate());
             }
         }
-        return nationalBankViewDTO;
+        return sellExchangeRateDTO;
     }
 }

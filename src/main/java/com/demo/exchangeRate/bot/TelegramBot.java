@@ -1,10 +1,8 @@
 package com.demo.exchangeRate.bot;
 
 import com.demo.exchangeRate.controller.MessageController;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.FieldDefaults;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.updates.SetWebhook;
@@ -15,13 +13,12 @@ import java.util.Map;
 
 @Getter
 @Setter
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class TelegramBot extends SpringWebhookBot {
-    String botPath;
-    String botUsername;
-    String botToken;
-    Map<String, String> exchangeRateReceivingAddresses;
-    MessageController messageController;
+    private String botPath;
+    private String botUsername;
+    private String botToken;
+    private Map<String, String> exchangeRateReceivingAddresses;
+    private MessageController messageController;
 
     public TelegramBot(MessageController messageController, DefaultBotOptions options, SetWebhook setWebhook) {
         super(options, setWebhook);

@@ -1,32 +1,32 @@
-package com.demo.exchangeRate.controller;
+package com.demo.exchangeRate.service;
 
 import com.demo.exchangeRate.DTO.AlfaBankDTO;
-import com.demo.exchangeRate.DTO.AlfaBankViewDTO;
+import com.demo.exchangeRate.DTO.FullBankExchangeRateDTO;
 import com.demo.exchangeRate.mapper.AlfaBankMapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-@Component
+@Service
 @RequiredArgsConstructor
-public class AlfaBankController {
+public class AlfaBankService implements Bank{
     private final AlfaBankMapper alfaBankMapper;
+    private final MessageCreatorService messageService;
 
-    public AlfaBankViewDTO getExchangeRate(Map<String, String> exchangeRateReceivingAddresses, String bank) {
-        String url = exchangeRateReceivingAddresses.get(bank);
+    @Override
+    public String getExchangeRate(String bankUrl) {
         ObjectMapper mapper = new ObjectMapper();
         List<AlfaBankDTO> alfaBankDTO = new ArrayList<>();
         try {
-            JsonNode response = mapper.readTree(new URL(url)).path("rates");
+            JsonNode response = mapper.readTree(new URL(bankUrl)).path("rates");
             CollectionType collectionType =
                     TypeFactory
                             .defaultInstance()
@@ -36,10 +36,14 @@ public class AlfaBankController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return convertToDTO(alfaBankDTO);
+        return convertDtoToString(convertToDTO(alfaBankDTO));
     }
 
-    private AlfaBankViewDTO convertToDTO(List<AlfaBankDTO> alfaBankDTO) {
-        return alfaBankMapper.convertToAlfaBankViwDTO(alfaBankDTO);
+    private FullBankExchangeRateDTO convertToDTO(List<AlfaBankDTO> alfaBankDTO) {
+        return alfaBankMapper.convertToFullExchangeRateDTO(alfaBankDTO);
+    }
+
+    private String convertDtoToString(FullBankExchangeRateDTO fullExchangeRate){
+       return messageService.createAnswerWithFullExchangeRate(fullExchangeRate);
     }
 }

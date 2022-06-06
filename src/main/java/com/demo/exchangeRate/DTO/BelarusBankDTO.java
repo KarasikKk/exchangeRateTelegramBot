@@ -7,16 +7,16 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class NationalBank {
-    @JsonProperty(value = "Cur_ID")
-    private int curID;
-    @JsonProperty(value = "Date")
-    private String date;
-    @JsonProperty(value = "Cur_Abbreviation")
-    private String curAbbreviation;
-    @JsonProperty(value = "Cur_OfficialRate")
-    private double curOfficialRate;
+@Getter
+public class BelarusBankDTO{
+    @JsonProperty(value = "USD_in")
+    private double USDPurchaseRate;
+    @JsonProperty(value = "USD_out")
+    private double USDSellRate;
+    @JsonProperty(value = "EUR_in")
+    private double EURPurchaseRate;
+    @JsonProperty(value = "EUR_out")
+    private double EURSellRate;
 }
